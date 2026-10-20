@@ -148,6 +148,7 @@ public class MainActivity extends Activity {
 
         LinearLayout clock = new LinearLayout(this);
         clock.setOrientation(LinearLayout.VERTICAL);
+        clock.setGravity(Gravity.CENTER_HORIZONTAL); // Centers the text inside the clock container
         shownLocale = java.util.Locale.getDefault();
         String day = Strings.datePattern();
         TextClock date = clock(day, day, px(30), 0xA8FFFFFF, regular);
@@ -159,7 +160,11 @@ public class MainActivity extends Activity {
         LinearLayout.LayoutParams tp = new LinearLayout.LayoutParams(-2, -2);
         tp.topMargin = px(-20); // pull the big digits up under the date
         clock.addView(time, tp);
-        root.addView(clock, at(px(MARGIN), px(92), -2, -2));
+        // Use a FrameLayout.LayoutParams with Gravity to center the whole block on the screen
+        FrameLayout.LayoutParams clockParams = new FrameLayout.LayoutParams(-2, -2);
+        clockParams.gravity = Gravity.CENTER_HORIZONTAL; 
+        clockParams.topMargin = px(92);
+        root.addView(clock, clockParams);
 
         moveHint = text(px(24), 0xA8FFFFFF, regular);
         moveHint.setText(Strings.t("Use the arrows to move it, then press OK"));
